@@ -1,43 +1,31 @@
 import express from 'express';
-import http from 'http'; // Import http module for creating server
+import http from 'http';
 import 'dotenv/config'; // Load environment variables from .env file
 import dotenv from 'dotenv';
 import connectDB from './config/db.js';
 import authRoutes from './routes/authRoutes.js';
+// import carRoutes from './routes/carRoutes.js';
 import { jwtSecret } from './config/config.js';
-import socketio from 'socket.io'; // Import Socket.io
+import { initializeSocket } from './services/socketServices.js';
+import cors from 'cors'; // Import the CORS package
 
 dotenv.config({ path: './secret/.env' });
-// const jwtSecret = process.env.JWT_SECRET;
 console.log('JWT Secret:', jwtSecret);
 
-connectDB(); // Ensure MongoDB connection is established
+connectDB();
 
 const app = express();
 const server = http.createServer(app); // Create HTTP server
-const io = socketio(server); // Create Socket.io instance tied to server
 
-// Middleware to parse JSON bodies
+initializeSocket(server); // Initialize Socket.io with the server
+
 app.use(express.json());
 
-// Routes
+// Enable CORS for all routes
+app.use(cors());
+
 app.use('/api/auth', authRoutes);
-
-// Socket.io integration for real-time updates
-io.on('connection', (socket) => {
-  console.log('New client connected:', socket.id);
-
-  // Example: Handle real-time events
-  socket.on('bookVehicle', (data) => {
-    // Handle booking logic
-    console.log('Vehicle booked:', data);
-    io.emit('updateAvailability', data); // Emit update to all clients
-  });
-
-  socket.on('disconnect', () => {
-    console.log('Client disconnected:', socket.id);
-  });
-});
+// app.use('/api/cars', carRoutes);
 
 const PORT = process.env.PORT || 5000;
 

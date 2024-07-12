@@ -9,7 +9,7 @@ import {
   updateBikeBooking,
   deleteBikeBooking,
 } from "../controllers/bikeBookingController.js";
-import { createCar, getCars, getCarById, updateCar, deleteCar, bookCar } from '../controllers/carController.js';
+import { createCar, getCars, getCarById, updateCar, deleteCar, bookCar, returnCar } from '../controllers/carController.js';
 import { createDocument, getDocuments, getDocumentById, updateDocument, deleteDocument } from '../controllers/bookingDocument.js';
 import upload from '../middleware/multerConfig.js';
 
@@ -34,7 +34,8 @@ router.put("/bikeBooking/:id", updateBikeBooking);
 router.delete("/bikeBooking/:id", deleteBikeBooking);
 
 router.post('/car', upload.single('image'), createCar);
-router.post('/bookcar', upload.single('image'), bookCar);
+router.post('/car/:id/book', bookCar);
+router.post('/car/:id/return', returnCar);
 router.get('/car', getCars);
 router.get('/car/:id', getCarById);
 router.put('/car/:id', upload.single('image'), updateCar);

@@ -1,5 +1,6 @@
 import Car from '../models/car.js';
 import cloudinary from '../config/cloudinary.js';
+import { io } from '../services/socketServices.js';
 
 // @desc    Create a new car
 // @route   POST /api/cars
@@ -114,6 +115,8 @@ export const deleteCar = async (req, res) => {
 
 
 // Example update to handle booking
+
+
 export const bookCar = async (req, res) => {
   const { id } = req.params;
   try {
@@ -122,12 +125,43 @@ export const bookCar = async (req, res) => {
       return res.status(404).json({ message: 'Car not found' });
     }
 
-    if (car.bookings < car.availability) {
+    if (0 < car.availability) {
       car.bookings += 1;
+      car.availability -= 1; // Decrease availability
       const updatedCar = await car.save();
+
+      // Emit socket event to notify clients about the booking
+      io.emit('carUpdated', updatedCar);
+
       res.json(updatedCar);
     } else {
       res.status(400).json({ message: 'No available units left' });
+    }
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+};
+
+
+export const returnCar = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const car = await Car.findById(id);
+    if (!car) {
+      return res.status(404).json({ message: 'Car not found' });
+    }
+
+    if (car.bookings > 0) {
+      car.bookings -= 1;
+      car.availability += 1; // Increase availability
+      const updatedCar = await car.save();
+
+      // Emit socket event to notify clients about the return
+      io.emit('carUpdated', updatedCar);
+
+      res.json(updatedCar);
+    } else {
+      res.status(400).json({ message: 'No bookings to return' });
     }
   } catch (error) {
     res.status(400).json({ message: error.message });
