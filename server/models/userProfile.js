@@ -2,7 +2,7 @@ import mongoose from "mongoose"
 import validator from "validator";
 
 const userSchema = mongoose.Schema({
-    name: {
+    username: {
       type: String,
       required: [true, "Enter the name"],
       maxLength: [30, "Name cannot exceed 30 characters"],

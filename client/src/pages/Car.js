@@ -125,7 +125,7 @@ const Car = () => {
                 </div>
               </div>
             </div>
-            <div className="self-stretch flex flex-col items-start justify-start gap-[1rem] shrink-0 text-[1rem] text-black">
+            {/* <div className="self-stretch flex flex-col items-start justify-start gap-[1rem] shrink-0 text-[1rem] text-black">
               <div className="self-stretch flex flex-row flex-wrap items-start justify-center py-[0rem] pr-[0.375rem] pl-[0rem] gap-[1.25rem_1.193rem]">
                 <CarCard
                   carImage="/car-image@2x.png"
@@ -626,7 +626,7 @@ const Car = () => {
                   src="/placeholder@2x.png"
                 />
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
         <Demo1 />
