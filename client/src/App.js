@@ -22,6 +22,7 @@ import CreateAccount from "./pages/CreateAccount";
 import Contact from "./pages/Contact";
 import EasyOnboarding from "./pages/EasyOnboarding";
 import LocalServiceProvide from "./pages/LocalServiceProvide";
+import AvailabilityCalendar from "./pages/AvailabilityCalender";
 
 function App() {
   const action = useNavigationType();
@@ -126,13 +127,13 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<DrivveLandingPage />} />
-      <Route path="/-bike-booking-confirm" element={<BikeBookingConfirm />} />
+      <Route path="/bike-booking-confirm" element={<BikeBookingConfirm />} />
       <Route path="/car-booking-confirm" element={<CarBookingConfirm />} />
       <Route path="/contact-us" element={<ContactUs />} />
       <Route path="/insurance-and-policy" element={<InsuranceAndPolicy />} />
       <Route path="/customer-order" element={<CustomerOrder />} />
       <Route path="/customer-profile" element={<CustomerProfile />} />
-      <Route path="/vehicl-owner-dashbord" element={<VehiclOwnerDashbord />} />
+      <Route path="/vehicle-owner-dashbord" element={<VehiclOwnerDashbord />} />
       <Route path="/dashboard-of-customer" element={<DashboardOfCustomer />} />
       <Route path="/bike-hsoting-and-refer" element={<BikeHsotingAndRefer />} />
       <Route path="/car-hsoting-and-refer" element={<CarHsotingAndRefer />} />
@@ -142,6 +143,7 @@ function App() {
       <Route path="/contact" element={<Contact />} />
       <Route path="/easy-onboarding" element={<EasyOnboarding />} />
       <Route path="/local-service-provide" element={<LocalServiceProvide />} />
+      <Route path="/availability-calender" element={<AvailabilityCalendar />} />
     </Routes>
   );
 }
