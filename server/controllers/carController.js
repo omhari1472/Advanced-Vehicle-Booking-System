@@ -1,17 +1,46 @@
-import Car from '../models/car.js';
-import cloudinary from '../config/cloudinary.js';
-import { io } from '../services/socketServices.js';
+import Car from "../models/car.js";
+import cloudinary from "../config/cloudinary.js";
+import { io } from "../services/socketServices.js";
+import Availability from "../models/availability.js";
 
 // @desc    Create a new car
 // @route   POST /api/cars
 // @access  Public
+
 export const createCar = async (req, res) => {
-  const { carName, seats, luggage, doors, fuel, horsepower, engine, drive, type } = req.body;
+  const {
+    carName,
+    seats,
+    luggage,
+    doors,
+    fuel,
+    horsepower,
+    engine,
+    drive,
+    type,
+  } = req.body;
 
   try {
-    const result = await cloudinary.v2.uploader.upload(req.file.path);
+    // Check if a car with the same name (model) already exists
+    let existingCar = await Car.findOne({ carName });
 
-    const car = new Car({
+    if (existingCar) {
+      // If car already exists, increment totalCars in Availability
+      await Availability.updateOne(
+        { carName },
+        { $inc: { totalCars: 1 } }
+      );
+
+      return res.status(200).json({ message: 'Car updated successfully', car: existingCar });
+    }
+
+    // Upload image to Cloudinary
+    const result = await cloudinary.uploader.upload(req.file.path, {
+      resource_type: 'auto', // Auto-detects the file type
+    });
+
+    // Create new car object with image URL from Cloudinary
+    const newCar = new Car({
       carName,
       seats,
       luggage,
@@ -21,15 +50,35 @@ export const createCar = async (req, res) => {
       engine,
       drive,
       type,
-      image: result.secure_url
+      image: result.secure_url, // Store the secure URL returned by Cloudinary
     });
 
-    const createdCar = await car.save();
-    res.status(201).json(createdCar);
+    // Save the new car to the database
+    await newCar.save();
+
+    // Create or update availability record
+    let availability = await Availability.findOne({ carName });
+    if (availability) {
+      availability.totalCars++;
+    } else {
+      availability = new Availability({
+        carName,
+        totalCars: 1,
+        bookings: 0,
+      });
+    }
+    await availability.save();
+
+    // Respond with success message and new car data
+    res.status(201).json({ message: 'New car added successfully!', car: newCar });
   } catch (error) {
-    res.status(400).json({ message: error.message });
+    // Handle errors
+    console.error(error);
+    res.status(500).json({ error: error.message });
   }
 };
+
+
 
 // @desc    Get all cars
 // @route   GET /api/cars
@@ -53,7 +102,7 @@ export const getCarById = async (req, res) => {
     if (car) {
       res.json(car);
     } else {
-      res.status(404).json({ message: 'Car not found' });
+      res.status(404).json({ message: "Car not found" });
     }
   } catch (error) {
     res.status(400).json({ message: error.message });
@@ -64,7 +113,17 @@ export const getCarById = async (req, res) => {
 // @route   PUT /api/cars/:id
 // @access  Public
 export const updateCar = async (req, res) => {
-  const { carName, seats, luggage, doors, fuel, horsepower, engine, drive, type } = req.body;
+  const {
+    carName,
+    seats,
+    luggage,
+    doors,
+    fuel,
+    horsepower,
+    engine,
+    drive,
+    type,
+  } = req.body;
 
   try {
     const car = await Car.findById(req.params.id);
@@ -88,7 +147,7 @@ export const updateCar = async (req, res) => {
       const updatedCar = await car.save();
       res.json(updatedCar);
     } else {
-      res.status(404).json({ message: 'Car not found' });
+      res.status(404).json({ message: "Car not found" });
     }
   } catch (error) {
     res.status(400).json({ message: error.message });
@@ -104,15 +163,14 @@ export const deleteCar = async (req, res) => {
 
     if (car) {
       await car.remove();
-      res.json({ message: 'Car removed' });
+      res.json({ message: "Car removed" });
     } else {
-      res.status(404).json({ message: 'Car not found' });
+      res.status(404).json({ message: "Car not found" });
     }
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
 };
-
 
 // Example update to handle booking
 
@@ -122,20 +180,25 @@ export const bookCar = async (req, res) => {
   try {
     const car = await Car.findById(id);
     if (!car) {
-      return res.status(404).json({ message: 'Car not found' });
+      return res.status(404).json({ message: "Car not found" });
     }
 
-    if (0 < car.availability) {
-      car.bookings += 1;
-      car.availability -= 1; // Decrease availability
-      const updatedCar = await car.save();
+    const availability = await Availability.findOne({ carName: car.carName });
+    if (!availability) {
+      return res.status(404).json({ message: "Availability data not found" });
+    }
+
+    const car_availability = availability.totalCars-availability.bookings;
+    if (car_availability > 0) {
+      availability.bookings += 1;
+      await availability.save();
 
       // Emit socket event to notify clients about the booking
-      io.emit('carUpdated', updatedCar);
+      io.emit("availabilityUpdated", availability);
 
-      res.json(updatedCar);
+      res.json({ message: "Car booked successfully", car });
     } else {
-      res.status(400).json({ message: 'No available units left' });
+      res.status(400).json({ message: "No available units left" });
     }
   } catch (error) {
     res.status(400).json({ message: error.message });
@@ -148,20 +211,26 @@ export const returnCar = async (req, res) => {
   try {
     const car = await Car.findById(id);
     if (!car) {
-      return res.status(404).json({ message: 'Car not found' });
+      return res.status(404).json({ message: "Car not found" });
     }
 
-    if (car.bookings > 0) {
-      car.bookings -= 1;
-      car.availability += 1; // Increase availability
-      const updatedCar = await car.save();
+    // Find availability record for this car
+    const availability = await Availability.findOne({ carName: car.carName });
+    if (!availability) {
+      return res.status(404).json({ message: "Availability data not found" });
+    }
 
-      // Emit socket event to notify clients about the return
-      io.emit('carUpdated', updatedCar);
+    // Ensure there are bookings to return
+    if (availability.bookings > 0) {
+      availability.bookings -= 1;
+      await availability.save();
 
-      res.json(updatedCar);
+      // Emit socket event to notify clients about the availability update
+      io.emit("availabilityUpdated", availability);
+
+      res.json({ message: "Car returned successfully", car });
     } else {
-      res.status(400).json({ message: 'No bookings to return' });
+      res.status(400).json({ message: "No bookings to return" });
     }
   } catch (error) {
     res.status(400).json({ message: error.message });

@@ -1,10 +1,13 @@
-import mongoose from "mongoose";
+// models/car.js
+
+import mongoose from 'mongoose';
 
 const carSchema = new mongoose.Schema(
   {
     carName: {
       type: String,
       required: true,
+      unique: true,
     },
     seats: {
       type: Number,
@@ -42,19 +45,12 @@ const carSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    availability: {
-      type: Number,
-    }, // Total available units
-    bookings: {
-      type: Number,
-      default: 0,
-    },
   },
   {
     timestamps: true,
   }
 );
 
-const Car = mongoose.model("Car", carSchema);
+const Car = mongoose.model('Car', carSchema);
 
 export default Car;
