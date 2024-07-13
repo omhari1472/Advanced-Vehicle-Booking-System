@@ -1,4 +1,6 @@
 import PropTypes from "prop-types";
+import DashBoard from "./Dashboard";
+import Profile from "./Profile";
 
 const ContentArea = ({ className = "" }) => {
   return (
@@ -29,27 +31,10 @@ const ContentArea = ({ className = "" }) => {
                   </div>
                 </div>
                 <div className="self-stretch flex flex-col items-start justify-start gap-[0.281rem] text-[0.994rem] text-gray-1200">
-                  <div className="self-stretch rounded-[4.55px] flex flex-row items-center justify-start pt-[0.637rem] pb-[0.643rem] pr-[9.437rem] pl-[0.937rem] gap-[0.568rem] mq450:pr-[1.25rem] mq450:box-border">
-                    <img
-                      className="h-[1.706rem] w-[1.706rem] relative overflow-hidden shrink-0"
-                      loading="lazy"
-                      alt=""
-                      src="/antdesignhomefilled.svg"
-                    />
-                    <div className="relative capitalize font-medium inline-block min-w-[5.25rem]">
-                      Dashboard
-                    </div>
-                  </div>
-                  <div className="self-stretch rounded-[4.55px] bg-white flex flex-row items-center justify-start pt-[0.637rem] pb-[0.643rem] pr-[9.875rem] pl-[0.937rem] gap-[0.568rem] whitespace-nowrap mq450:pr-[1.25rem] mq450:box-border">
-                    <img
-                      className="h-[1.706rem] w-[1.706rem] relative overflow-hidden shrink-0"
-                      alt=""
-                      src="/iconamoonprofilefill.svg"
-                    />
-                    <div className="relative capitalize font-medium inline-block min-w-[4.813rem]">
-                      my profile
-                    </div>
-                  </div>
+                  
+                <DashBoard />
+                <Profile />
+
                   <div className="self-stretch rounded-[4.55px] bg-gray-1600 flex flex-row items-center justify-start pt-[0.637rem] pb-[0.643rem] pr-[10.187rem] pl-[0.937rem] gap-[0.568rem] whitespace-nowrap text-white mq450:pr-[1.25rem] mq450:box-border">
                     <img
                       className="h-[1.706rem] w-[1.706rem] relative overflow-hidden shrink-0"
