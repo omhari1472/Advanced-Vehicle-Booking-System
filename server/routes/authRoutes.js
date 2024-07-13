@@ -9,9 +9,23 @@ import {
   updateBikeBooking,
   deleteBikeBooking,
 } from "../controllers/bikeBookingController.js";
-import { createCar, getCars, getCarById, updateCar, deleteCar, bookCar, returnCar } from '../controllers/carController.js';
-import { createDocument, getDocuments, getDocumentById, updateDocument, deleteDocument } from '../controllers/bookingDocument.js';
-import upload from '../middleware/multerConfig.js';
+import {
+  createCar,
+  getCars,
+  getCarById,
+  updateCar,
+  deleteCar,
+  bookCar,
+  returnCar,
+} from "../controllers/carController.js";
+import {
+  createDocument,
+  getDocuments,
+  getDocumentById,
+  updateDocument,
+  deleteDocument,
+} from "../controllers/bookingDocument.js";
+import upload from "../middleware/multerConfig.js";
 
 const router = express.Router();
 
@@ -33,19 +47,18 @@ router.get("/bikeBooking/:id", getBikeBookingById);
 router.put("/bikeBooking/:id", updateBikeBooking);
 router.delete("/bikeBooking/:id", deleteBikeBooking);
 
-router.post('/car', upload.single('image'), createCar);
-router.post('/car/:id/book', bookCar);
-router.post('/car/:id/return', returnCar);
-router.get('/car', getCars);
-router.get('/car/:id', getCarById);
-router.put('/car/:id', upload.single('image'), updateCar);
-router.delete('/car/:id', deleteCar);
+router.post("/car", upload.single("image"), createCar);
+router.post("/car/:id/book", bookCar);
+router.post("/car/:id/return", returnCar);
+router.get("/car", getCars);
+router.get("/car/:id", getCarById);
+router.put("/car/:id", upload.single("image"), updateCar);
+router.delete("/car/:id", deleteCar);
 
-
-router.post('/documents', upload.single('drivingLicense'), createDocument);
-router.get('/documents', getDocuments);
-router.get('/documents/:id', getDocumentById);
-router.put('/documents/:id', upload.single('drivingLicense'), updateDocument);
-router.delete('/documents/:id', deleteDocument);
+router.post("/documents", upload.single("drivingLicense"), createDocument);
+router.get("/documents", getDocuments);
+router.get("/documents/:id", getDocumentById);
+router.put("/documents/:id", upload.single("drivingLicense"), updateDocument);
+router.delete("/documents/:id", deleteDocument);
 
 export default router;

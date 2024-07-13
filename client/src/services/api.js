@@ -27,4 +27,15 @@ export const register = async (username, email, password) => {
   } catch (error) {
     throw error.response || error;
   }
+
 };
+
+  export const getcar = async ()=>{
+    try{
+      const response = await api.get('/auth/car');
+      // console.log("car",response);
+      return response;
+    } catch (error){
+      throw error.response || error;
+    }
+  };

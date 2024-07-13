@@ -1,7 +1,21 @@
 import { useMemo } from "react";
 import PropTypes from "prop-types";
 
-const CarCard = ({ className = "", carImage, jeepRenegade, propBorder }) => {
+const CarCard = ({
+  className = "",
+  carName,
+  propBorder,
+  seats,
+  luggage,
+  doors,
+  fuel,
+  horsepower,
+  engine,
+  drive,
+  type,
+  image,
+  price
+}) => {
   const carCardStyle = useMemo(() => {
     return {
       border: propBorder,
@@ -16,40 +30,40 @@ const CarCard = ({ className = "", carImage, jeepRenegade, propBorder }) => {
       <img
         className="w-[14.094rem] h-[8.569rem] relative object-cover"
         alt=""
-        src={carImage}
+        src={image}
       />
       <div className="self-stretch flex flex-col items-center justify-start gap-[1.25rem]">
         <div className="self-stretch flex flex-col items-start justify-center py-[0rem] px-[0.187rem] gap-[0.625rem]">
           <div className="relative capitalize font-semibold inline-block min-w-[7.5rem]">
-            {jeepRenegade}
+            {carName}
           </div>
           <div className="self-stretch flex flex-row items-start justify-between gap-[1.25rem] text-[0.625rem] text-dimgray-100">
             <div className="flex flex-col items-start justify-start gap-[0.55rem]">
               <div className="relative text-[0.75rem] capitalize font-medium text-dimgray-900 inline-block min-w-[2.938rem]">
-                seats: 4
+                seats: {seats}
               </div>
               <div className="relative capitalize inline-block min-w-[3.375rem]">
-                Luggage: 4
+                Luggage: {luggage}
               </div>
               <div className="relative capitalize inline-block min-w-[2.563rem]">
-                doors: 4
+                doors: {doors}
               </div>
               <div className="relative capitalize inline-block min-w-[3.313rem]">
-                fuel: petrol
+                fuel: {fuel}
               </div>
             </div>
             <div className="flex flex-col items-end justify-start gap-[0.55rem]">
               <div className="relative text-[0.75rem] capitalize font-medium text-dimgray-900 inline-block min-w-[6.25rem]">
-                horsepower: 500
+                horsepower: {horsepower}
               </div>
               <div className="relative capitalize inline-block min-w-[3.75rem]">
-                engine:3000
+                engine:{engine}
               </div>
               <div className="relative capitalize inline-block min-w-[2.125rem]">
-                drive:4
+                drive:{drive}
               </div>
               <div className="relative capitalize inline-block min-w-[5rem]">
-                type: hatchback
+                type: {type}
               </div>
             </div>
           </div>
@@ -60,7 +74,7 @@ const CarCard = ({ className = "", carImage, jeepRenegade, propBorder }) => {
               per hours
             </div>
             <b className="relative text-[1.125rem] capitalize inline-block text-black min-w-[2.25rem] whitespace-nowrap">
-              $56
+              ${price}
             </b>
           </div>
           <div className="shadow-[0px_5.3px_17.68px_rgba(0,_0,_0,_0.15)] rounded-[3.54px] bg-black flex flex-row items-center justify-center pt-[0.55rem] px-[0.875rem] pb-[0.556rem] whitespace-nowrap text-[0.625rem] text-white">
