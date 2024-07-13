@@ -55,7 +55,7 @@ const DrivveLandingPage = () => {
               src="/map-header-section.svg"
             />
           </div>
-          <FormItem />
+          {/* <FormItem /> */}
         </div>
       </section>
       <section className="self-stretch flex flex-col items-end justify-start pt-[0rem] px-[0rem] pb-[7.187rem] box-border gap-[6.062rem] min-h-[72.375rem] max-w-full text-left text-[3.125rem] text-gray-1600 font-inter mq450:gap-[1.5rem] mq800:gap-[3rem] mq800:pb-[3.063rem] mq800:box-border mq1350:pb-[4.688rem] mq1350:box-border">

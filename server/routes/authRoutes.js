@@ -1,7 +1,7 @@
 import express from "express";
 import { register, login } from "../controllers/authController.js";
 import { body } from "express-validator";
-import { contactUs } from "../controllers/contactController.js";
+import { contactUs, getContacts } from "../controllers/contactController.js";
 import {
   createBikeBooking,
   getBikeBookings,
@@ -33,13 +33,14 @@ router.post("/register", register);
 router.post("/login", login);
 router.post(
   "/contact",
-  [
-    body("email").isEmail().withMessage("Please provide a valid email address"),
-    body("message").notEmpty().withMessage("Message cannot be empty"),
-  ],
+  // [
+  //   body("email").isEmail().withMessage("Please provide a valid email address"),
+  //   body("message").notEmpty().withMessage("Message cannot be empty"),
+  // ],
   contactUs
-);
+)
 
+router.get("/contact",getContacts)
 router.post("/bikeBooking", createBikeBooking);
 router.get("/bikeBooking", getBikeBookings);
 

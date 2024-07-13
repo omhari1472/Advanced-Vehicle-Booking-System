@@ -1,6 +1,42 @@
 import PropTypes from "prop-types";
+import { useState } from "react";
+import { Contactus } from "../services/api";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const FrameComponent1 = ({ className = "" }) => {
+  const history =useNavigate();
+  const [data, setData] = useState({
+    email: "",
+    message: "",
+  });
+
+  const handleInputs = (e) => {
+    const { name, value } = e.target;
+    setData({ ...data, [name]: value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+  
+    try {
+      const response = await axios.post("http://localhost:4000/api/auth/contact",data)
+      
+      
+      console.log("Registration successful:", response);
+      if (response && response.data) {
+      } else {
+        console.error("Registration failed: Invalid response format");
+      }
+    } catch (error) {
+      console.error("Registration failed:", error.message);
+      if (error.response) {
+        console.error("Response Data:", error.response.data);
+      }
+    }
+  };
+  
+  
   return (
     <section
       className={`w-[89.338rem] flex flex-row items-start justify-center py-[0rem] px-[1.25rem] box-border max-w-full text-center text-[3.544rem] text-gray-1600 font-inter ${className}`}
@@ -34,6 +70,9 @@ const FrameComponent1 = ({ className = "" }) => {
                     className="w-[16.488rem] [border:none] [outline:none] bg-[transparent] h-[2.363rem] flex flex-row items-start justify-start py-[0.525rem] px-[0.5rem] box-border font-inter text-[1.05rem] text-darkgray-500"
                     placeholder="syedtahmidahmed@gmai.com"
                     type="text"
+                    onChange={handleInputs}
+                    name="email"
+                    id="email"
                   />
                 </div>
               </div>
@@ -41,15 +80,19 @@ const FrameComponent1 = ({ className = "" }) => {
                 <div className="relative leading-[1.313rem] capitalize font-semibold inline-block min-w-[6.938rem]">
                   Tell me about it
                 </div>
-                <textarea
+                <input
                   className="bg-whitesmoke-200 h-[8.269rem] w-auto [outline:none] self-stretch box-border border-[0.5px] border-solid border-lightgray-400"
                   rows={7}
                   cols={20}
+                  type="text"
+                    onChange={handleInputs}
+                    name="message"
+                    id="message"
                 />
               </div>
             </div>
           </div>
-          <button className="cursor-pointer [border:none] pt-[0.981rem] px-[1.312rem] pb-[0.987rem] bg-gray-1600 shadow-[14.7px_22px_7.35px_rgba(0,_0,_0,_0),_9.4px_14.7px_7.35px_rgba(0,_0,_0,_0.01),_5.2px_8.4px_5.25px_rgba(0,_0,_0,_0.05),_2.1px_3.1px_4.2px_rgba(0,_0,_0,_0.09),_1px_1px_2.1px_rgba(0,_0,_0,_0.1),_0px_0px_0px_rgba(0,_0,_0,_0.1)] rounded-[7.35px] flex flex-row items-center justify-center whitespace-nowrap hover:bg-darkslategray-500">
+          <button onClick={handleSubmit} className="cursor-pointer [border:none] pt-[0.981rem] px-[1.312rem] pb-[0.987rem] bg-gray-1600 shadow-[14.7px_22px_7.35px_rgba(0,_0,_0,_0),_9.4px_14.7px_7.35px_rgba(0,_0,_0,_0.01),_5.2px_8.4px_5.25px_rgba(0,_0,_0,_0.05),_2.1px_3.1px_4.2px_rgba(0,_0,_0,_0.09),_1px_1px_2.1px_rgba(0,_0,_0,_0.1),_0px_0px_0px_rgba(0,_0,_0,_0.1)] rounded-[7.35px] flex flex-row items-center justify-center whitespace-nowrap hover:bg-darkslategray-500">
             <div className="relative text-[1rem] leading-[1.313rem] capitalize font-semibold font-inter text-white text-left inline-block min-w-[7.125rem]">
               send message
             </div>

@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import PropTypes from "prop-types";
-
+import { useNavigate } from "react-router-dom";
 const CarCard = ({
   className = "",
   carName,
@@ -22,6 +22,7 @@ const CarCard = ({
     };
   }, [propBorder]);
 
+  const history = useNavigate();
   return (
     <div
       className={`flex-1 rounded-xl bg-white box-border flex flex-col items-center justify-start py-[1.375rem] pr-[0.687rem] pl-[0.875rem] gap-[1rem] min-w-[6.875rem] text-left text-[1rem] text-black font-inter border-[1px] border-solid border-gainsboro-400 mq450:pt-[1.25rem] mq450:pb-[1.25rem] mq450:box-border ${className}`}
@@ -77,11 +78,11 @@ const CarCard = ({
               ${price}
             </b>
           </div>
-          <div className="shadow-[0px_5.3px_17.68px_rgba(0,_0,_0,_0.15)] rounded-[3.54px] bg-black flex flex-row items-center justify-center pt-[0.55rem] px-[0.875rem] pb-[0.556rem] whitespace-nowrap text-[0.625rem] text-white">
+          <button onClick={()=> history("/car-booking-confirm")}className="cursor-pointer shadow-[0px_5.3px_17.68px_rgba(0,_0,_0,_0.15)] rounded-[3.54px] bg-black flex flex-row items-center justify-center pt-[0.55rem] px-[0.875rem] pb-[0.556rem] whitespace-nowrap text-[0.625rem] text-white">
             <div className="relative capitalize font-semibold inline-block min-w-[2.625rem]">
               rent Car
             </div>
-          </div>
+          </button>
         </div>
       </div>
     </div>

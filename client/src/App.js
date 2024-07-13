@@ -24,6 +24,9 @@ import EasyOnboarding from "./pages/EasyOnboarding";
 import LocalServiceProvide from "./pages/LocalServiceProvide";
 import AvailabilityCalendar from "./pages/AvailabilityCalender";
 import LoginUser from "./pages/LoginUser";
+import Payment from "./components/payment/Payment";
+import Completion from "./components/payment/Completion";
+import Map from "./pages/Map";
 
 function App() {
   const action = useNavigationType();
@@ -149,6 +152,9 @@ function App() {
         <Route path="/my-profile" element={<CustomerProfile />} />
         <Route path="/my-order" element={<CustomerOrder />} />
         <Route path="/login" element={<LoginUser />} />
+        <Route path="/completion" element={<Completion />} />
+        <Route path="/payment" element={<Payment />} />
+        <Route path="/map" element={<Map />} />
     </Routes>
   );
 }

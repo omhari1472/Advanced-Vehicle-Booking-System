@@ -8,23 +8,22 @@ export const createDocument = async (req, res) => {
   const { name, email, message } = req.body;
 
   try {
-    const result = await cloudinary.v2.uploader.upload(req.file.path, {
-      resource_type: 'auto' // This allows Cloudinary to accept any file type, including PDFs
-    });
-
+    // The uploaded file URL will be available in req.file.path
     const document = new Document({
       name,
       email,
       message,
-      drivingLicense: result.secure_url
+      drivingLicense: req.file.path, // Cloudinary URL
     });
 
-    const createdDocument = await document.save();
-    res.status(201).json(createdDocument);
+    const savedDocument = await document.save();
+    res.status(201).json(savedDocument);
   } catch (error) {
-    res.status(400).json({ message: 'Failed to create document', error: error.message });
+    console.error('Error saving document:', error.message);
+    res.status(500).json({ message: 'Server error' });
   }
 };
+
 
 // @desc    Get all documents
 // @route   GET /api/documents

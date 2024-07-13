@@ -4,13 +4,15 @@ import BikeBooking from '../models/bikeBooking.js';
 // @route   POST /api/bike-bookings
 // @access  Public
 export const createBikeBooking = async (req, res) => {
-  const { location, pickupDateTime, dropOffDateTime, duration, price } = req.body;
+  const { location, pickupdate,pickuptime, dropoffdate,dropofftime,duration, price } = req.body;
 
   try {
     const bikeBooking = new BikeBooking({
       location,
-      pickupDateTime,
-      dropOffDateTime,
+      pickupDate:pickupdate,
+      pickupTime:pickuptime,
+      dropOffDate:dropoffdate,
+      dropOffTime:dropofftime,
       duration,
       price
     });
@@ -55,15 +57,17 @@ export const getBikeBookingById = async (req, res) => {
 // @route   PUT /api/bike-bookings/:id
 // @access  Public
 export const updateBikeBooking = async (req, res) => {
-  const { location, pickupDateTime, dropOffDateTime, duration, price } = req.body;
+  const { location, pickupDate,pickupTime,dropOffDate, dropOffTime, duration, price } = req.body;
 
   try {
     const bikeBooking = await BikeBooking.findById(req.params.id);
 
     if (bikeBooking) {
       bikeBooking.location = location || bikeBooking.location;
-      bikeBooking.pickupDateTime = pickupDateTime || bikeBooking.pickupDateTime;
-      bikeBooking.dropOffDateTime = dropOffDateTime || bikeBooking.dropOffDateTime;
+      bikeBooking.pickupDate = pickupDate || bikeBooking.pickupDate;
+      bikeBooking.pickupTime = pickupTime || bikeBooking.pickupTime;
+      bikeBooking.dropOffDate = dropOffDate || bikeBooking.dropOffDate;
+      bikeBooking.dropOffTime = dropOffTime || bikeBooking.dropOffTime;
       bikeBooking.duration = duration || bikeBooking.duration;
       bikeBooking.price = price || bikeBooking.price;
 

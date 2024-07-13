@@ -5,21 +5,29 @@ const bikeBookingSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  pickupDateTime: {
+  pickupDate: {
     type: Date,
     required: true
   },
-  dropOffDateTime: {
+  pickupTime: {
+    type: String,
+    required: true
+  },
+  dropOffDate: {
     type: Date,
+    required: true
+  },
+  dropOffTime: {
+    type: String,
     required: true
   },
   duration: {
     type: Number,
-    required: true
+    // required: true
   },
   price: {
     type: Number,
-    required: true
+    // required: true
   }
 }, {
   timestamps: true

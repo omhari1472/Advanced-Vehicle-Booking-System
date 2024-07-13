@@ -8,6 +8,7 @@ import authRoutes from './routes/authRoutes.js';
 import { jwtSecret } from './config/config.js';
 import { initializeSocket } from './services/socketServices.js';
 import cors from 'cors'; // Import the CORS package
+import Stripe from 'stripe';
 
 dotenv.config({ path: './secret/.env' });
 console.log('JWT Secret:', jwtSecret);
@@ -26,7 +27,37 @@ app.use(cors());
 
 app.use('/api/auth', authRoutes);
 // app.use('/api/cars', carRoutes);
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
+  apiVersion: "2022-08-01",
+});
 
+app.get("/config", (req, res) => {
+  console.log(process.env.STRIPE_PUBLISHABLE_KEY);
+  res.send({
+    publishableKey: process.env.STRIPE_PUBLISHABLE_KEY,
+  });
+});
+
+app.post("/create-payment-intent", async (req, res) => {
+  try {
+    const paymentIntent = await stripe.paymentIntents.create({
+      currency: "EUR",
+      amount: 1999,
+      automatic_payment_methods: { enabled: true },
+    });
+
+    // Send publishable key and PaymentIntent details to client
+    res.send({
+      clientSecret: paymentIntent.client_secret,
+    });
+  } catch (e) {
+    return res.status(400).send({
+      error: {
+        message: e.message,
+      },
+    });
+  }
+});
 const PORT = process.env.PORT || 5000;
 
 server.listen(PORT, () => {

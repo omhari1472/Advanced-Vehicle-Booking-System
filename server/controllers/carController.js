@@ -18,6 +18,8 @@ export const createCar = async (req, res) => {
     engine,
     drive,
     type,
+    image,
+    price
   } = req.body;
 
   try {
@@ -50,7 +52,8 @@ export const createCar = async (req, res) => {
       engine,
       drive,
       type,
-      image: result.secure_url, // Store the secure URL returned by Cloudinary
+      image: result.secure_url,
+      price // Store the secure URL returned by Cloudinary
     });
 
     // Save the new car to the database

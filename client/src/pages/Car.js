@@ -1,16 +1,21 @@
+import React, { useState, useEffect } from "react";
 import CarCard from "../components/CarCard";
 import Demo1 from "../components/Demo1";
-import React, { useState, useEffect } from "react";
 import { getcar } from "../services/api";
 
 const Car = () => {
   const [carData, setCarData] = useState([]);
+  const [filteredCars, setFilteredCars] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [brandFilter, setBrandFilter] = useState("");
+  const [priceFilter, setPriceFilter] = useState("");
 
   useEffect(() => {
     const fetchCarData = async () => {
       try {
         const response = await getcar();
         setCarData(response.data);
+        setFilteredCars(response.data); // Initially set filtered cars to all cars
         console.log("car", response.data);
       } catch (error) {
         console.error("Failed to fetch car data:", error.message);
@@ -19,6 +24,44 @@ const Car = () => {
 
     fetchCarData();
   }, []);
+
+  useEffect(() => {
+    filterCars(); // Update filtered cars whenever search query, brand, or price filter changes
+  }, [searchQuery, brandFilter, priceFilter, carData]);
+
+  const handleSearchInputChange = (event) => {
+    setSearchQuery(event.target.value);
+  };
+
+  const handleBrandFilterChange = (event) => {
+    setBrandFilter(event.target.value);
+  };
+
+  const handlePriceFilterChange = (event) => {
+    setPriceFilter(event.target.value);
+  };
+
+  const filterCars = () => {
+    let filtered = carData;
+
+    if (searchQuery) {
+      filtered = filtered.filter((car) =>
+        car.carName.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+    }
+
+    if (brandFilter) {
+      filtered = filtered.filter((car) =>
+        car.brand.toLowerCase().includes(brandFilter.toLowerCase())
+      );
+    }
+
+    if (priceFilter) {
+      filtered = filtered.filter((car) => car.price <= parseInt(priceFilter, 10));
+    }
+
+    setFilteredCars(filtered);
+  };
 
   return (
     <div className="w-full relative bg-whitesmoke-800 overflow-hidden flex flex-col items-start justify-start gap-[19.375rem] leading-[normal] tracking-[normal] text-left text-[2.5rem] text-white font-inter mq450:gap-[4.813rem] mq750:gap-[9.688rem]">
@@ -89,46 +132,24 @@ const Car = () => {
                 />
                 <div className="flex-1 shadow-[0px_20px_45px_rgba(179,_179,_179,_0.15)] rounded-3xs bg-white box-border flex flex-row items-end justify-center py-[2.375rem] px-[1.25rem] shrink-0 max-w-full z-[3] border-[1.2px] border-solid border-lightgray-300">
                   <div className="overflow-x-auto flex flex-row items-end justify-start gap-[1.968rem] max-w-full mq750:gap-[1rem]">
-                    <div className="w-[9.188rem] shadow-[0px_0px_0px_rgba(0,_0,_0,_0.3)] rounded-lg bg-white box-border overflow-hidden shrink-0 flex flex-row items-center justify-between py-[0.5rem] px-[0.875rem] gap-[1.25rem] border-[1px] border-solid border-gainsboro-900">
-                      <div className="relative font-medium inline-block min-w-[2.563rem] whitespace-nowrap">
-                        Search
-                      </div>
-                      <img
-                        className="h-[0.75rem] w-[0.75rem] relative"
-                        alt=""
-                        src="/group-1000004123.svg"
-                      />
-                    </div>
-                    <div className="w-[4.8rem] shadow-[0px_0px_0px_rgba(0,_0,_0,_0.3)] rounded-4xs-4 bg-white box-border shrink-0 flex flex-row items-center justify-start py-[0.5rem] pr-[0.812rem] pl-[0.875rem] gap-[0.656rem] border-[1px] border-solid border-gainsboro-900">
-                      <div className="relative font-medium inline-block min-w-[1.875rem] whitespace-nowrap">
-                        Price
-                      </div>
-                      <img
-                        className="h-[0.219rem] w-[0.438rem] relative"
-                        alt=""
-                        src="/vector1.svg"
-                      />
-                    </div>
-                    <div className="shadow-[0px_0px_0px_rgba(0,_0,_0,_0.3)] rounded-4xs-4 bg-white overflow-hidden shrink-0 flex flex-row items-center justify-start py-[0.5rem] pr-[0.812rem] pl-[0.875rem] gap-[0.656rem] whitespace-nowrap border-[1px] border-solid border-gainsboro-900">
-                      <div className="relative font-medium inline-block min-w-[5.063rem] whitespace-nowrap">
-                        Time Duration
-                      </div>
-                      <img
-                        className="h-[0.219rem] w-[0.438rem] relative"
-                        alt=""
-                        src="/vector1.svg"
-                      />
-                    </div>
-                    <div className="w-[5.05rem] shadow-[0px_0px_0px_rgba(0,_0,_0,_0.3)] rounded-4xs-4 bg-white box-border overflow-hidden shrink-0 flex flex-row items-center justify-start py-[0.5rem] pr-[0.812rem] pl-[0.875rem] gap-[0.656rem] border-[1px] border-solid border-gainsboro-900">
-                      <div className="relative capitalize font-medium inline-block min-w-[2.125rem] whitespace-nowrap">
-                        brand
-                      </div>
-                      <img
-                        className="h-[0.219rem] w-[0.438rem] relative"
-                        alt=""
-                        src="/vector1.svg"
-                      />
-                    </div>
+                    <input
+                      placeholder="Search"
+                      value={searchQuery}
+                      onChange={handleSearchInputChange}
+                      className="w-[9.188rem] shadow-[0px_0px_0px_rgba(0,_0,_0,_0.3)] rounded-lg bg-white box-border overflow-hidden shrink-0 flex flex-row items-center justify-between py-[0.5rem] px-[0.875rem] gap-[1.25rem] border-[1px] border-solid border-gainsboro-900"
+                    />
+                    <input
+                      placeholder="Budget"
+                      value={priceFilter}
+                      onChange={handlePriceFilterChange}
+                      className="w-[4.8rem] shadow-[0px_0px_0px_rgba(0,_0,_0,_0.3)] rounded-4xs-4 bg-white box-border shrink-0 flex flex-row items-center justify-start py-[0.5rem] pr-[0.812rem] pl-[0.875rem] gap-[0.656rem] border-[1px] border-solid border-gainsboro-900"
+                    />
+                    <input
+                      placeholder="Brand"
+                      value={brandFilter}
+                      onChange={handleBrandFilterChange}
+                      className="w-[5.05rem] shadow-[0px_0px_0px_rgba(0,_0,_0,_0.3)] rounded-4xs-4 bg-white box-border overflow-hidden shrink-0 flex flex-row items-center justify-start py-[0.5rem] pr-[0.812rem] pl-[0.875rem] gap-[0.656rem] border-[1px] border-solid border-gainsboro-900"
+                    />
                     <div className="w-[4.875rem] shadow-[0px_0px_0px_rgba(0,_0,_0,_0.3)] rounded-lg bg-white box-border overflow-hidden shrink-0 flex flex-row items-center justify-start py-[0.5rem] px-[0.812rem] gap-[0.312rem] border-[1px] border-solid border-gainsboro-900">
                       <div className="relative font-medium inline-block min-w-[1.875rem] whitespace-nowrap">
                         Filter
@@ -145,7 +166,7 @@ const Car = () => {
             </div>
             <div className="self-stretch flex flex-col items-start justify-start gap-[1rem] shrink-0 text-[1rem] text-black">
               <div className="self-stretch flex flex-row flex-wrap items-start justify-center py-[0rem] pr-[0.375rem] pl-[0rem] gap-[1.25rem_1.193rem]">
-                {carData.map((car, index) => (
+                {filteredCars.map((car, index) => (
                   <div key={index}>
                     <CarCard
                       carName={car.carName}
