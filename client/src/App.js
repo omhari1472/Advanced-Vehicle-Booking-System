@@ -23,10 +23,6 @@ import Contact from "./pages/Contact";
 import EasyOnboarding from "./pages/EasyOnboarding";
 import LocalServiceProvide from "./pages/LocalServiceProvide";
 import AvailabilityCalendar from "./pages/AvailabilityCalender";
-import React from "react";
-
-import { Elements } from "@stripe/react-stripe-js";
-import { loadStripe } from "@stripe/stripe-js";
 
 function App() {
   const action = useNavigationType();
@@ -129,44 +125,26 @@ function App() {
   }, [pathname]);
 
   return (
-      <Routes>
-        <Route path="/" element={<DrivveLandingPage />} />
-        <Route path="/bike-booking-confirm" element={<BikeBookingConfirm />} />
-        <Route path="/car-booking-confirm" element={<CarBookingConfirm />} />
-        <Route path="/contact-us" element={<ContactUs />} />
-        <Route path="/insurance-and-policy" element={<InsuranceAndPolicy />} />
-        <Route path="/customer-order" element={<CustomerOrder />} />
-        <Route path="/customer-profile" element={<CustomerProfile />} />
-        <Route
-          path="/vehicle-owner-dashbord"
-          element={<VehiclOwnerDashbord />}
-        />
-        <Route
-          path="/dashboard-of-customer"
-          element={<DashboardOfCustomer />}
-        />
-        <Route
-          path="/bike-hsoting-and-refer"
-          element={<BikeHsotingAndRefer />}
-        />
-        <Route path="/insurance" element={<InsuranceAndPolicy />} />
-        <Route path="/my-profile" element={<CustomerProfile />} />
-        <Route path="/my-order" element={<CustomerOrder />} />
-        <Route path="/my-account" element={<CreateAccount />} />
-        <Route path="/bike" element={<Bike />} />
-        <Route path="/car" element={<Car />} />
-        <Route path="/create-account" element={<CreateAccount />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/easy-onboarding" element={<EasyOnboarding />} />
-        <Route
-          path="/local-service-provide"
-          element={<LocalServiceProvide />}
-        />
-        <Route
-          path="/availability-calender"
-          element={<AvailabilityCalendar />}
-        />
-      </Routes>
+    <Routes>
+      <Route path="/" element={<DrivveLandingPage />} />
+      <Route path="/bike-booking-confirm" element={<BikeBookingConfirm />} />
+      <Route path="/car-booking-confirm" element={<CarBookingConfirm />} />
+      <Route path="/contact-us" element={<ContactUs />} />
+      <Route path="/insurance-and-policy" element={<InsuranceAndPolicy />} />
+      <Route path="/customer-order" element={<CustomerOrder />} />
+      <Route path="/customer-profile" element={<CustomerProfile />} />
+      <Route path="/vehicle-owner-dashbord" element={<VehiclOwnerDashbord />} />
+      <Route path="/dashboard-of-customer" element={<DashboardOfCustomer />} />
+      <Route path="/bike-hsoting-and-refer" element={<BikeHsotingAndRefer />} />
+      <Route path="/car-hsoting-and-refer" element={<CarHsotingAndRefer />} />
+      <Route path="/bike" element={<Bike />} />
+      <Route path="/car" element={<Car />} />
+      <Route path="/create-account" element={<CreateAccount />} />
+      <Route path="/contact" element={<Contact />} />
+      <Route path="/easy-onboarding" element={<EasyOnboarding />} />
+      <Route path="/local-service-provide" element={<LocalServiceProvide />} />
+      <Route path="/availability-calender" element={<AvailabilityCalendar />} />
+    </Routes>
   );
 }
 export default App;

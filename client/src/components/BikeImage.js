@@ -92,7 +92,7 @@ const BikeImage = ({ className = "" }) => {
           </div>
           <button className="cursor-pointer [border:none] pt-[1.125rem] px-[1.25rem] pb-[1.131rem] bg-gray-2100 w-[25.075rem] rounded-2xs-1 flex flex-row items-start justify-center box-border whitespace-nowrap max-w-full hover:bg-darkslategray-700">
             <b className="relative text-[0.963rem] uppercase inline-block font-inter text-white text-left min-w-[5.5rem]">
-              book now 
+              book now
             </b>
           </button>
         </div>
@@ -110,7 +110,7 @@ const BikeImage = ({ className = "" }) => {
         </div>
       </div>
       <div className="w-[22.688rem] flex flex-row items-start justify-start py-[0rem] px-[1rem] box-border max-w-full">
-        <div className="relative flex flex-row items-start justify-start flex-1 max-w-full">
+        <div className="flex-1 flex flex-row items-start justify-start relative max-w-full">
           <img
             className="h-[49.013rem] w-[64.813rem] absolute !m-[0] top-[-16rem] right-[-47rem]"
             loading="lazy"
@@ -125,7 +125,7 @@ const BikeImage = ({ className = "" }) => {
               <div className="self-stretch flex flex-col items-start justify-start gap-[1.5rem]">
                 <div className="self-stretch flex flex-col items-start justify-start pt-[0rem] px-[0rem] pb-[0.25rem] gap-[1.5rem]">
                   <div className="self-stretch flex flex-row items-start justify-between gap-[1.25rem] mq450:flex-wrap">
-                    <div className="relative font-medium capitalize">
+                    <div className="relative capitalize font-medium">
                       Ground Clearance
                     </div>
                     <div className="relative capitalize font-medium inline-block min-w-[4.25rem]">
@@ -196,9 +196,9 @@ const BikeImage = ({ className = "" }) => {
                   </div>
                 </div>
               </div>
-              <div className="flex flex-col items-start self-stretch justify-start">
-                <div className="flex flex-col items-start self-stretch justify-start">
-                  <div className="flex flex-col items-start self-stretch justify-start">
+              <div className="self-stretch flex flex-col items-start justify-start">
+                <div className="self-stretch flex flex-col items-start justify-start">
+                  <div className="self-stretch flex flex-col items-start justify-start">
                     <div className="self-stretch flex flex-row items-start justify-between gap-[1.25rem] mq450:flex-wrap">
                       <div className="relative capitalize font-medium inline-block min-w-[5.375rem]">
                         Tyre Type
