@@ -1,7 +1,11 @@
 import DashboardContent from "../components/DashboardContent";
 import RecentOrders from "../components/RecentOrders";
+import { useNavigate } from "react-router-dom";
 
 const DashboardOfCustomer = () => {
+  const history = useNavigate();
+
+
   return (
     <div className="w-full relative bg-white overflow-hidden flex flex-col items-start justify-start pt-[2rem] px-[0rem] pb-[0rem] box-border gap-[4.987rem] leading-[normal] tracking-[normal] mq450:gap-[1.25rem] mq750:gap-[2.5rem]">
       <div className="w-[10.375rem] hidden" />

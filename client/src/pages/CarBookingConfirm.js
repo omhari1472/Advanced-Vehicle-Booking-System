@@ -6,6 +6,9 @@ const CarBookingConfirm = () => {
   return (
     <div className="w-full relative bg-white overflow-hidden flex flex-col items-start justify-start pt-[2rem] px-[0rem] pb-[0rem] box-border gap-[6.375rem] leading-[normal] tracking-[normal] text-left text-[1.5rem] text-black font-inter mq750:gap-[3.188rem] mq450:gap-[1.563rem]">
       <header className="self-stretch flex flex-row items-start justify-center pt-[0rem] px-[1.25rem] pb-[0.5rem] box-border max-w-full text-left text-[1.638rem] text-gray-2200 font-inter">
+        <div>
+          
+        </div>
         <div className="w-[72.5rem] flex flex-row items-center justify-between gap-[1.25rem] max-w-full">
           <a className="[text-decoration:none] relative font-semibold text-[inherit] inline-block min-w-[5.188rem] whitespace-nowrap">
             Drivee
@@ -50,6 +53,8 @@ const CarBookingConfirm = () => {
         </div>
       </header>
       <Hero />
+      
+   
       <div className="w-[53.313rem] flex flex-row items-start justify-center py-[0rem] px-[1.25rem] box-border max-w-full">
         <div className="w-[35.688rem] flex flex-col items-start justify-start gap-[1rem] max-w-full">
           <div className="relative capitalize font-semibold mq450:text-[1.188rem]">

@@ -1,5 +1,6 @@
 import ProcessContainer from "../components/ProcessContainer";
 import FormContainer from "../components/FormContainer";
+import React from "react";
 
 const Contact = () => {
   return (

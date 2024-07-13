@@ -1,5 +1,8 @@
 import { useMemo } from "react";
 import PropTypes from "prop-types";
+import { useNavigate } from "react-router-dom";
+import Insurance from "./Insurance";
+import MyOrder from "./MyOrder";
 
 const ActionsContainer = ({
   className = "",
@@ -16,6 +19,18 @@ const ActionsContainer = ({
       border: propBorder,
     };
   }, [propBorder]);
+
+  const history = useNavigate();
+
+  const handleMyProfileClick = () => {
+    console.log("clicked");
+    history("/my-profile");
+  };
+
+  const handleDashboardClick = () => {
+    console.log("clicked");
+    history("/dashboard-of-customer");
+  };
 
   return (
     <div
@@ -38,46 +53,33 @@ const ActionsContainer = ({
           </div>
         </div>
         <div className="self-stretch flex flex-col items-start justify-start gap-[0.281rem] text-[0.994rem] text-gray-1200">
-          <div className="self-stretch rounded-[4.55px] bg-gray-2300 flex flex-row items-center justify-start pt-[0.643rem] pb-[0.637rem] pr-[9.375rem] pl-[0.937rem] gap-[0.568rem] text-white mq450:pr-[1.25rem] mq450:box-border">
-            <img
-              className="h-[1.706rem] w-[1.706rem] relative overflow-hidden shrink-0"
-              alt=""
-              src="/antdesignhomefilled1.svg"
-            />
-            <div className="relative capitalize font-semibold inline-block min-w-[5.313rem]">
-              Dashboard
+          <button type="button" onClick={handleDashboardClick}>
+            <div className="self-stretch rounded-[4.55px] bg-gray-2300 flex flex-row items-center justify-start pt-[0.643rem] pb-[0.637rem] pr-[9.375rem] pl-[0.937rem] gap-[0.568rem] text-white mq450:pr-[1.25rem] mq450:box-border">
+              <img
+                className="h-[1.706rem] w-[1.706rem] relative overflow-hidden shrink-0"
+                alt=""
+                src="/antdesignhomefilled1.svg"
+              />
+              <div className="relative capitalize font-semibold inline-block min-w-[5.313rem]">
+                Dashboard
+              </div>
             </div>
-          </div>
-          <div className="self-stretch rounded-[4.55px] flex flex-row items-center justify-start pt-[0.643rem] pb-[0.637rem] pr-[9.937rem] pl-[0.937rem] gap-[0.568rem] mq450:pr-[1.25rem] mq450:box-border">
-            <img
-              className="h-[1.706rem] w-[1.706rem] relative overflow-hidden shrink-0"
-              loading="lazy"
-              alt=""
-              src={iconamoonprofileFill}
-            />
-            <div className="relative capitalize font-medium inline-block min-w-[4.813rem]">
-              my profile
-            </div>
-          </div>
+          </button>
+        
           <div className="self-stretch rounded-[4.55px] flex flex-row items-center justify-start pt-[0.637rem] pb-[0.643rem] pr-[10.062rem] pl-[0.937rem] gap-[0.568rem] mq450:pr-[1.25rem] mq450:box-border">
-            <img
+            {/* <img
               className="h-[1.706rem] w-[1.706rem] relative overflow-hidden shrink-0"
               loading="lazy"
               alt=""
               src={uiscalender}
-            />
-            <div className="relative capitalize font-medium inline-block min-w-[4.688rem]">
+            /> */}
+            {/* <div className="relative capitalize font-medium inline-block min-w-[4.688rem]">
               {myWallet}
-            </div>
+            </div> */}
+            <MyOrder />
+
           </div>
-          <div className="self-stretch rounded-[4.55px] flex flex-row items-center justify-start pt-[0.637rem] pb-[0.643rem] pr-[6rem] pl-[0.937rem] gap-[0.568rem] mq450:pr-[1.25rem] mq450:box-border">
-            <img
-              className="h-[1.706rem] w-[1.706rem] relative overflow-hidden shrink-0"
-              alt=""
-              src={uiscalender1}
-            />
-            <div className="relative capitalize font-medium">{`insurance & policy`}</div>
-          </div>
+          <Insurance />
           <div className="self-stretch rounded-[4.55px] flex flex-row items-center justify-start pt-[0.637rem] pb-[0.643rem] pr-[10.875rem] pl-[0.937rem] gap-[0.568rem] mq450:pr-[1.25rem] mq450:box-border">
             <img
               className="h-[1.419rem] w-[1.419rem] relative overflow-hidden shrink-0"

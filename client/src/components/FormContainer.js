@@ -1,7 +1,14 @@
+import React from "react";
 import NameField from "./NameField";
 import PropTypes from "prop-types";
+import { useNavigate } from "react-router-dom";
 
 const FormContainer = ({ className = "" }) => {
+  const history = useNavigate();
+
+  function handleClick() {
+    history("/paymentForm");
+  }
   return (
     <div
       className={`self-stretch flex flex-col items-start justify-start gap-[1.968rem] text-left text-[1.05rem] text-gray-1600 font-inter mq800:gap-[1rem] ${className}`}
@@ -50,11 +57,15 @@ const FormContainer = ({ className = "" }) => {
           </div>
         </div>
       </div>
-      <button className="cursor-pointer [border:none] p-0 bg-[transparent] self-stretch flex flex-col items-center justify-start z-[1]">
-        <div className="self-stretch flex flex-col items-center justify-center">
+      <button
+        onClick={handleClick}
+        type="button"
+        className="cursor-pointer bg-gray-900 [border:none] p-0 bg-[transparent] self-stretch flex flex-col items-center justify-start z-[1]"
+      >
+        <div className="flex flex-col items-center self-stretch justify-center">
           <div className="self-stretch shadow-[0px_3.1px_6.3px_rgba(18,_18,_18,_0.03)] rounded-6xs-3 bg-gray-1600 flex flex-row items-center justify-center py-[0.875rem] px-[1.25rem] border-[1px] border-solid border-lightslategray-200">
             <div className="flex flex-row items-center justify-start">
-              <div className="relative text-[1rem] leading-[150%] font-semibold font-inter text-white text-left inline-block min-w-[3.438rem]">
+              <div className="relative text-[1rem] leading-[150%] font-semibold font-inter  text-white text-left inline-block min-w-[3.438rem]">
                 Submit
               </div>
             </div>
