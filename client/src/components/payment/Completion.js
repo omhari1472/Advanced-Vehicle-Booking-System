@@ -24,7 +24,7 @@ function Completion() {
             </p>
             <p> Have a great day!</p>
             <div className="py-10 text-center">
-              <a onClick={()=>navigate('/')} className="px-12 py-3 font-semibold text-white bg-indigo-600 cursor-pointer hover:bg-indigo-500">
+              <a onClick={()=>navigate('/contact-us')} className="px-12 py-3 font-semibold text-white bg-indigo-600 cursor-pointer hover:bg-indigo-500">
                 GO BACK
               </a>
             </div>

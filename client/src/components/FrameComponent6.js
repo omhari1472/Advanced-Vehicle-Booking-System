@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
-
+import { useNavigate } from "react-router-dom";
 const FrameComponent6 = ({ className = "" }) => {
+  const navigate = useNavigate();
   return (
     <div
       className={`w-[82.688rem] flex flex-row items-start justify-start py-[0rem] pr-[0rem] pl-[1.25rem] box-border gap-[1.437rem] max-w-full text-left text-[3.125rem] text-gray-1600 font-inter mq1125:flex-wrap ${className}`}
@@ -36,7 +37,7 @@ const FrameComponent6 = ({ className = "" }) => {
             user-friendly platform allows you to manage your bookings and view
             your trip history with ease.
           </div>
-          <button className="cursor-pointer [border:none] py-[0.625rem] px-[1rem] bg-black shadow-[0px_6px_20px_rgba(0,_0,_0,_0.15)] rounded-9xs flex flex-row items-center justify-center whitespace-nowrap hover:bg-darkslategray-1400">
+          <button onClick={()=>navigate("/car")} className="cursor-pointer [border:none] py-[0.625rem] px-[1rem] bg-black shadow-[0px_6px_20px_rgba(0,_0,_0,_0.15)] rounded-9xs flex flex-row items-center justify-center whitespace-nowrap hover:bg-darkslategray-1400">
             <div className="relative text-[0.75rem] capitalize font-semibold font-inter text-white text-left inline-block min-w-[3.188rem]">
               rent Car
             </div>

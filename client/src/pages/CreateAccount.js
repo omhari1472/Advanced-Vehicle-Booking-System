@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import NameInput from "../components/NameInput";
 import { register } from "../services/api";
-
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 const CreateAccount = () => {
+  const navigate = useNavigate()
   const [data, setData] = useState({
     username: "",
     email: "",
@@ -16,14 +18,19 @@ const CreateAccount = () => {
   };
 
   const handleSubmit = async (e) => {
+    console.log("dsadsa")
     e.preventDefault(); // Prevent the form from submitting
     // Log only the extracted form data, not entire DOM elements
     console.log("Form Data:", data);
 
     try {
       // Call the register API function with extracted data
-      const response = await register(data.username, data.email, data.password);
+      const response =  await axios.post('http://localhost:4000/api/auth/register',{data});
       console.log("Registration successful:", response);
+      if(response)
+      {
+        navigate("/");
+      }
       // Handle successful registration (e.g., redirect to login page)
     } catch (error) {
       console.error("Registration failed:", error.message);

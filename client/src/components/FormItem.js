@@ -4,10 +4,7 @@ import axios from "axios";
 export default function FormItem() {
   const history = useNavigate();
 
-  function handleForm() {
-    console.log("clicked");
-    history("/contact");
-  }
+  
 
 
   const [data, setData] = useState({
@@ -53,6 +50,9 @@ export default function FormItem() {
   
       console.log(" successful:", response);
       if (response && response.data && response.data) {
+        const stringifyLocation  = JSON.stringify(data)
+         localStorage.setItem("location",stringifyLocation)
+
         history("/contact");
       } else {
         console.error(" failed: Invalid response format");
@@ -64,6 +64,9 @@ export default function FormItem() {
       }
     }
   };
+
+  
+  
 
 
   return (

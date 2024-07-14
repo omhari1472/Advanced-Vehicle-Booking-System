@@ -25,14 +25,10 @@ const Contact = () => {
     data.append('name', formData.name);
     data.append('email', formData.email);
     data.append('message', formData.message);
-    data.append('image', formData.image);
+    // data.append('image', formData.image);
 
     try {
-      const response = await axios.post('http://localhost:4000/api/auth/documents', data, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      });
+      const response = await axios.post('http://localhost:4000/api/auth/documents', data)
       console.log('Document uploaded:', response.data);
     } catch (error) {
       console.error('Error uploading document:', error.message);

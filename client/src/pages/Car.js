@@ -63,6 +63,8 @@ const Car = () => {
     setFilteredCars(filtered);
   };
 
+  
+
   return (
     <div className="w-full relative bg-whitesmoke-800 overflow-hidden flex flex-col items-start justify-start gap-[19.375rem] leading-[normal] tracking-[normal] text-left text-[2.5rem] text-white font-inter mq450:gap-[4.813rem] mq750:gap-[9.688rem]">
       <div className="w-full h-[22.5rem] absolute !m-[0] top-[6.75rem] right-[0rem] left-[0rem] bg-gray-1700 overflow-hidden shrink-0">
@@ -180,6 +182,8 @@ const Car = () => {
                       type={car.type}
                       image={car.image}
                       price={car.price}
+                   
+                      car = {car}
                     />
                   </div>
                 ))}

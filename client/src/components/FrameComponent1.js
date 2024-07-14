@@ -5,12 +5,11 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 const FrameComponent1 = ({ className = "" }) => {
-  const history =useNavigate();
   const [data, setData] = useState({
     email: "",
     message: "",
   });
-
+const history=useNavigate();
   const handleInputs = (e) => {
     const { name, value } = e.target;
     setData({ ...data, [name]: value });
@@ -25,6 +24,7 @@ const FrameComponent1 = ({ className = "" }) => {
       
       console.log("Registration successful:", response);
       if (response && response.data) {
+        history("/");
       } else {
         console.error("Registration failed: Invalid response format");
       }

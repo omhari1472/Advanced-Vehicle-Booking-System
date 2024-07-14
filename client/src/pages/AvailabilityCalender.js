@@ -1,6 +1,7 @@
 // client/src/App.js
 import React, { useEffect, useState } from 'react';
 import io from 'socket.io-client';
+import CalendarComponent from '../components/CalenderComponent';
 
 const socket = io('http://localhost:4000');
 
@@ -29,15 +30,10 @@ const AvailabilityCalender = () => {
   }, []);
 
   return (
-    <div>
-      <ul>
-        {cars.map((car) => (
-          <li key={car._id}>
-            {car.carName} - Bookings: {car.bookings} - Availability: {car.availability}
-          </li>
-        ))}
-      </ul>
-    </div>
+    <>
+      <CalendarComponent />
+    </>
+
   );
 };
 

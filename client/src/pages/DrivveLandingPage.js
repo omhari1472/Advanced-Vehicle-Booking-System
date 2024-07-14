@@ -5,8 +5,10 @@ import Testimonial from "../components/Testimonial";
 import Locations from "../components/Locations";
 import Questions from "../components/Questions";
 import Futtersection from "../components/Futtersection";
+import { useNavigate} from "react-router-dom";
 
 const DrivveLandingPage = () => {
+  const navigate = useNavigate()
   return (
     <div className="w-full relative bg-white overflow-hidden flex flex-col items-start justify-start gap-[5.812rem] leading-[normal] tracking-[normal] mq450:gap-[1.438rem] mq800:gap-[2.875rem]">
       <section className="self-stretch flex flex-row items-start justify-start pt-[0rem] px-[0rem] pb-[5.937rem] box-border max-w-full text-left text-[4rem] text-white font-inter mq450:pb-[2.5rem] mq450:box-border mq1125:pb-[3.875rem] mq1125:box-border">
@@ -35,7 +37,7 @@ const DrivveLandingPage = () => {
                   </div>
                 </div>
                 <div className="w-[20.438rem] flex flex-row items-start justify-start py-[0rem] pr-[1.25rem] pl-[0rem] box-border gap-[1.25rem] max-w-full text-[1.25rem]">
-                  <button className="cursor-pointer py-[0.812rem] px-[1.812rem] bg-white rounded-9xs flex flex-row items-center justify-center whitespace-nowrap border-[1px] border-solid border-white hover:bg-gainsboro-100 hover:box-border hover:border-[1px] hover:border-solid hover:border-gainsboro-100">
+                  <button onClick={()=>navigate("/car")} className="cursor-pointer py-[0.812rem] px-[1.812rem] bg-white rounded-9xs flex flex-row items-center justify-center whitespace-nowrap border-[1px] border-solid border-white hover:bg-gainsboro-100 hover:box-border hover:border-[1px] hover:border-solid hover:border-gainsboro-100">
                     <div className="relative text-[1.25rem] capitalize font-semibold font-inter text-gray-2300 text-left inline-block min-w-[5.25rem]">
                       rent Car
                     </div>
@@ -45,6 +47,11 @@ const DrivveLandingPage = () => {
                       rent bike
                     </div>
                   </div>
+                  <button onClick={()=>navigate("/map")} className="cursor-pointer py-[0.812rem] px-[1.812rem] bg-white rounded-9xs flex flex-row items-center justify-center whitespace-nowrap border-[1px] border-solid border-white hover:bg-gainsboro-100 hover:box-border hover:border-[1px] hover:border-solid hover:border-gainsboro-100">
+                    <div className="relative text-[1.25rem] capitalize font-semibold font-inter text-gray-2300 text-left inline-block min-w-[5.25rem]">
+                      Map 
+                    </div>
+                  </button>
                 </div>
               </div>
             </div>
@@ -59,7 +66,6 @@ const DrivveLandingPage = () => {
         </div>
       </section>
       <section className="self-stretch flex flex-col items-end justify-start pt-[0rem] px-[0rem] pb-[7.187rem] box-border gap-[6.062rem] min-h-[72.375rem] max-w-full text-left text-[3.125rem] text-gray-1600 font-inter mq450:gap-[1.5rem] mq800:gap-[3rem] mq800:pb-[3.063rem] mq800:box-border mq1350:pb-[4.688rem] mq1350:box-border">
-        <FrameComponent6 />
         <div className="self-stretch flex flex-row items-start justify-start max-w-full">
           <div className="w-[82.75rem] flex flex-row items-center justify-start py-[0rem] pr-[1.25rem] pl-[0rem] box-border gap-[2.625rem] max-w-full mq800:gap-[1.313rem] mq1125:flex-wrap">
             <img
@@ -100,9 +106,58 @@ const DrivveLandingPage = () => {
                   bookings and view your trip history with ease.
                 </div>
               </div>
-              <button className="cursor-pointer [border:none] py-[0.625rem] px-[1rem] bg-black shadow-[0px_6px_20px_rgba(0,_0,_0,_0.15)] rounded-9xs flex flex-row items-center justify-center whitespace-nowrap hover:bg-darkslategray-1400">
+              <button onClick={()=>navigate("/bike")} className="cursor-pointer [border:none] py-[0.625rem] px-[1rem] bg-black shadow-[0px_6px_20px_rgba(0,_0,_0,_0.15)] rounded-9xs flex flex-row items-center justify-center whitespace-nowrap hover:bg-darkslategray-1400">
                 <div className="relative text-[0.688rem] capitalize font-semibold font-inter text-white text-left inline-block min-w-[3.125rem]">
                   rent bike
+                </div>
+              </button>
+            </div>
+          </div>
+        </div>
+        <FrameComponent6 />
+        <div className="self-stretch flex flex-row items-start justify-start max-w-full">
+          <div className="w-[82.75rem] flex flex-row items-center justify-start py-[0rem] pr-[1.25rem] pl-[0rem] box-border gap-[2.625rem] max-w-full mq800:gap-[1.313rem] mq1125:flex-wrap">
+            <img
+              className="h-[29.563rem] flex-1 relative max-w-full overflow-hidden object-cover min-w-[28.813rem] mq800:min-w-full"
+              loading="lazy"
+              alt=""
+              src="/bike-image@2x.png"
+            />
+            <div className="w-[34.5rem] flex flex-col items-start justify-start py-[1.25rem] px-[0rem] box-border gap-[3rem] min-w-[34.5rem] max-w-full mq800:gap-[1.5rem] mq800:min-w-full mq1125:flex-1">
+              <div className="w-[35.688rem] flex flex-col items-start justify-start gap-[1.625rem] max-w-[104%] shrink-0">
+                <div className="flex flex-col items-start justify-start gap-[0.312rem]">
+                  <h1 className="m-0 relative text-inherit capitalize font-semibold font-inherit mq450:text-[1.875rem] mq800:text-[2.5rem]">
+                    Search your Nearest Store
+                  </h1>
+                  <div className="w-[16.188rem] flex flex-row items-end justify-start gap-[0.937rem] text-[0.625rem] text-gray-200">
+                    <div className="rounded-9xs bg-whitesmoke-600 flex flex-row items-center justify-center py-[0.625rem] px-[0.937rem]">
+                      <div className="relative uppercase inline-block min-w-[2.5rem]">
+                        luxury
+                      </div>
+                    </div>
+                    <div className="flex-1 rounded-9xs bg-whitesmoke-600 flex flex-row items-center justify-center py-[0.625rem] px-[0.937rem]">
+                      <div className="relative uppercase inline-block min-w-[3.188rem]">
+                        comfort
+                      </div>
+                    </div>
+                    <div className="flex-1 rounded-9xs bg-whitesmoke-600 flex flex-row items-center justify-center py-[0.625rem] px-[0.937rem]">
+                      <div className="relative uppercase inline-block min-w-[3rem]">
+                        prestige
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="self-stretch relative text-[1rem] leading-[200.02%] text-dimgray-600">
+                  Booking a self-driving car with us is simple and easy. You can
+                  browse our selection of vehicles online, choose the car that
+                  best fits your needs, and book it for the duration of your
+                  choice. Our user-friendly platform allows you to manage your
+                  bookings and view your trip history with ease.
+                </div>
+              </div>
+              <button onClick={()=>navigate("/map")} className="cursor-pointer [border:none] py-[0.625rem] px-[1rem] bg-black shadow-[0px_6px_20px_rgba(0,_0,_0,_0.15)] rounded-9xs flex flex-row items-center justify-center whitespace-nowrap hover:bg-darkslategray-1400">
+                <div className="relative text-[0.688rem] capitalize font-semibold font-inter text-white text-left inline-block min-w-[3.125rem]">
+                  Map
                 </div>
               </button>
             </div>

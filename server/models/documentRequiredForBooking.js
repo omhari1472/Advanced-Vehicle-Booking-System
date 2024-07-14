@@ -15,7 +15,7 @@ const documentSchema = mongoose.Schema({
   },
   drivingLicense: {
     type: String,
-    required: true
+    // required: true
   }
 }, {
   timestamps: true
